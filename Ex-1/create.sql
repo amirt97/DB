@@ -11,8 +11,8 @@ create table Coutnry(
 	country varchar,
 	region varcha(40),
 	incomegroup varchar(30)
-	foreign key(region) refrences Region(region),
-	foreign key(incomegroup) refrences Incomegroup(incomegroup)
+	foreign key(region) references Region(region),
+	foreign key(incomegroup) references Incomegroup(incomegroup)
 );
 
 create table Unveristy(
@@ -29,15 +29,15 @@ create table Unveristy(
 	specialized boolean not null, 
 	year integer,
 	countrycode char(3) not null,
-	foreign key(countrycode) refrences Country(countrycode)
+	foreign key(countrycode) references Country(countrycode)
 
 );
 
 
-create table enrollmentData(
+create table EnrollmentData(
 	iau_id1 varchar primary key,
 	year integer primary key,
 	students5_estimated integer,
-	foreign key(iau_id1) refrences Unveristy(iau_id1)
+	foreign key(iau_id1) references Unveristy(iau_id1)
 );
 
