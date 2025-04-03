@@ -1,5 +1,5 @@
-drop table if exists Incomegroup cascade;
-drop table if exists Region cascade;
-drop table if exists Country cascade;
-drop table if exists University cascade;
-drop table if exists EnrollmentData cascade;
+DROP TABLE IF EXISTS EnrollmentData;
+DROP TABLE IF EXISTS University;
+DROP TABLE IF EXISTS Country;
+DROP TABLE IF EXISTS Incomegroup;
+DROP TABLE IF EXISTS Region;
