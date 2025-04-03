@@ -9,7 +9,7 @@ create table Incomegroup(
 create table Country(
 	countrycode char(3) primary key,
 	country varchar,
-	region varcha(40),
+	region varchar(40),
 	incomegroup varchar(30)
 	foreign key(region) references Region(region),
 	foreign key(incomegroup) references Incomegroup(incomegroup)
@@ -30,7 +30,6 @@ create table Unveristy(
 	year integer,
 	countrycode char(3) not null,
 	foreign key(countrycode) references Country(countrycode)
-
 );
 
 
