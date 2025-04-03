@@ -1,43 +1,41 @@
-create table Region(
-	region varchar(40) primary key
+CREATE TABLE Region (
+    region VARCHAR(40) PRIMARY KEY
 );
 
-create table Incomegroup(
-	incomegroup varchar(30) primary key
+CREATE TABLE Incomegroup (
+    incomegroup VARCHAR(30) PRIMARY KEY
 );
 
-create table Country(
-	countrycode char(3) primary key,
-	country varchar,
-	region varchar(40),
-	incomegroup varchar(30)
-	foreign key(region) references Region(region),
-	foreign key(incomegroup) references Incomegroup(incomegroup)
+CREATE TABLE Country (
+    countrycode CHAR(3) PRIMARY KEY,
+    country VARCHAR(100),
+    region VARCHAR(40),
+    incomegroup VARCHAR(30),
+    FOREIGN KEY (region) REFERENCES Region(region),
+    FOREIGN KEY (incomegroup) REFERENCES Incomegroup(incomegroup)
 );
 
-create table Unveristy(
-	iau_id1 varchar primary key, 
-	eng_name varchar not null, 
-	orig_name varchar not null, 
-	foundedyr integer check(foundedyr>0) not null, 
-	yrclosed integer check(yrclosed>0), 
-	private01 varchar, 
-	latitude float, 
-	longitude float, 
-	phd_granting boolean not null, 
-	divisions integer, 
-	specialized boolean not null, 
-	year integer,
-	countrycode char(3) not null,
-	foreign key(countrycode) references Country(countrycode)
+CREATE TABLE University (
+    iau_id1 VARCHAR(20) PRIMARY KEY, 
+    eng_name VARCHAR(200) NOT NULL, 
+    orig_name VARCHAR(200) NOT NULL, 
+    foundedyr INTEGER NOT NULL CHECK (foundedyr > 0), 
+    yrclosed INTEGER CHECK (yrclosed > 0), 
+    private01 VARCHAR(10), 
+    latitude FLOAT, 
+    longitude FLOAT, 
+    phd_granting BOOLEAN NOT NULL, 
+    divisions INTEGER, 
+    specialized BOOLEAN NOT NULL, 
+    year INTEGER,
+    countrycode CHAR(3) NOT NULL,
+    FOREIGN KEY (countrycode) REFERENCES Country(countrycode)
 );
 
-
-create table EnrollmentData(
-	iau_id1 varchar,
-	year integer,
-	students5_estimated integer,
-	primary key(iau_id1,year),
-	foreign key(iau_id1) references Unveristy(iau_id1)
+CREATE TABLE EnrollmentData (
+    iau_id1 VARCHAR(20),
+    year INTEGER,
+    students5_estimated INTEGER,
+    PRIMARY KEY (iau_id1, year),
+    FOREIGN KEY (iau_id1) REFERENCES University(iau_id1)
 );
-
