@@ -6,7 +6,7 @@ create table Incomegroup(
 	incomegroup varchar(30) primary key
 );
 
-create table Coutnry(
+create table Country(
 	countrycode char(3) primary key,
 	country varchar,
 	region varcha(40),
@@ -35,9 +35,10 @@ create table Unveristy(
 
 
 create table EnrollmentData(
-	iau_id1 varchar primary key,
-	year integer primary key,
+	iau_id1 varchar,
+	year integer,
 	students5_estimated integer,
+	primary key(iau_id1,year),
 	foreign key(iau_id1) references Unveristy(iau_id1)
 );
 
