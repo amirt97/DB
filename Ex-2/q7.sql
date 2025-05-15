@@ -1,4 +1,4 @@
-SELECT m.name, mk.number
+SELECT mk.number, m.name
 FROM members m
 JOIN memberInKnesset mk ON m.uid = mk.uid
 WHERE NOT EXISTS (

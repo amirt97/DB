@@ -1,4 +1,4 @@
-SELECT DISTINCT name, occupation
+SELECT DISTINCT name
 FROM members
 NATURAL JOIN memberInKnesset
 WHERE number = 23
