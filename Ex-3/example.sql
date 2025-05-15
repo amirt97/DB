@@ -1,0 +1,1 @@
+insert into donors values  ('Leora','Yotzim LeShinooy',18), ('Amir','Yotzim LeShinooy',18), ('Amir','Let the Aminals Live',18);
