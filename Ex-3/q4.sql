@@ -1,31 +1,27 @@
-WITH party_counts AS (
+WITH partySize(number, party, psize) AS (
     SELECT 
-        number,
-        party,
-        COUNT(*) AS memberCount
+        number, 
+        party, 
+        COUNT(DISTINCT uid) AS psize
     FROM 
         memberInKnesset
     GROUP BY 
         number, party
-),
-max_counts AS (
-    SELECT 
-        number,
-        MAX(memberCount) AS maxCount
-    FROM 
-        party_counts
-    GROUP BY 
-        number
 )
 SELECT 
-    pc.number,
-    pc.party,
-    pc.memberCount
+    number, 
+    party, 
+    psize AS memberCount
 FROM 
-    party_counts pc
-JOIN 
-    max_counts mc 
-    ON pc.number = mc.number AND pc.memberCount = mc.maxCount
+    partySize p1
+WHERE 
+    psize >= ALL (
+        SELECT 
+            p2.psize
+        FROM 
+            partySize p2
+        WHERE 
+            p1.number = p2.number
+    )
 ORDER BY 
-    pc.number,
-    pc.party;
+    number, party;

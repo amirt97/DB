@@ -1,45 +1,31 @@
-WITH RECURSIVE connections AS (
-    -- Step 1: get Menachem Begin
-    SELECT 
-        m.uid AS source_uid,
-        m.uid AS current_uid,
-        0 AS distance
+WITH RECURSIVE memberNum(uid, num) AS (
+    SELECT DISTINCT 
+        uid, 
+        0 
     FROM 
-        members m
+        members 
     WHERE 
-        m.name = 'Menachem Begin'
+        name = 'Menachem Begin'
 
-    UNION ALL
+    UNION
 
-    -- Step 2: recursively find connected MKs
     SELECT 
-        c.source_uid,
-        mik2.uid AS current_uid,
-        c.distance + 1 AS distance
+        m1.uid, 
+        num + 1
     FROM 
-        connections c
-    JOIN 
-        memberInKnesset mik1 ON mik1.uid = c.current_uid
-    JOIN 
-        memberInKnesset mik2 
-            ON mik1.number = mik2.number 
-            AND mik1.party = mik2.party
-            AND mik2.uid <> c.current_uid
+        memberInKnesset m1, 
+        memberInKnesset m2 
+        NATURAL JOIN memberNum mn
     WHERE 
-        NOT EXISTS (
-            SELECT 1 
-            FROM connections prev 
-            WHERE prev.current_uid = mik2.uid
-        )
+        m1.number = m2.number 
+        AND m1.party = m2.party 
+        AND mn.num < 3
 )
-SELECT 
-    m.uid,
-    m.name
+SELECT DISTINCT 
+    name
 FROM 
-    connections c
-JOIN 
-    members m ON c.current_uid = m.uid
+    members
 WHERE 
-    c.distance > 3
+    uid NOT IN (SELECT uid FROM memberNum)
 ORDER BY 
-    m.uid;
+    name;
